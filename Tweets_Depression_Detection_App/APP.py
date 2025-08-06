@@ -4,8 +4,8 @@ import re
 import numpy as np
 
 # --- Load model and vectorizer ---
-model_p = pickle.load(open('Tweets_Depression_Detection_App/svm_model.pkl', 'rb'))
-vectorizer_p = pickle.load(open('Tweets_Depression_Detection_App/tfidf_vectorizer.pkl', 'rb'))
+model_p = pickle.load(open('svm_model.pkl', 'rb'))
+vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
 
 # --- Page configuration ---
 st.set_page_config(page_title="🧠 Depression Detector", page_icon="💬")
