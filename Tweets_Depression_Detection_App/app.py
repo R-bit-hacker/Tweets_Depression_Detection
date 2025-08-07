@@ -10,8 +10,8 @@ st.write("Files in working dir:", os.listdir())
 
 
 # --- Load model and vectorizer ---
-model_p = pickle.load(open('Tweets_Depression_Detection_App/logistic_model.pkl', 'rb'))
-vectorizer_p = pickle.load(open('Tweets_Depression_Detection_App/tfidf_vectorizer.pkl', 'rb'))
+model_p = pickle.load(open('logistic_model.pkl', 'rb'))
+vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
 
 
 # --- Page configuration ---
