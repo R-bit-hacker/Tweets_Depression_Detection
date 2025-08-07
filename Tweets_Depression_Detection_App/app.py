@@ -4,7 +4,7 @@ import re
 import numpy as np
 
 # --- Load model and vectorizer ---
-model_p = pickle.load(open('svm_model.pkl', 'rb'))
+model_p = pickle.load(open('logistic_model.pkl', 'rb'))
 vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
 
 # --- Page configuration ---
