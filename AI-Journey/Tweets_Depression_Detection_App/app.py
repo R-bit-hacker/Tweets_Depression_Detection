@@ -2,10 +2,17 @@ import streamlit as st
 import pickle
 import re
 import numpy as np
+import os
+import streamlit as st
+
+st.write("Working directory:", os.getcwd())
+st.write("Files in working dir:", os.listdir())
+
 
 # --- Load model and vectorizer ---
-model_p = pickle.load(open('svm_model.pkl', 'rb'))
+model_p = pickle.load(open('logistic_model.pkl', 'rb'))
 vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
+
 
 # --- Page configuration ---
 st.set_page_config(page_title="🧠 Depression Detector", page_icon="💬")
