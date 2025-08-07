@@ -1,28 +1,24 @@
-import streamlit as st
-import pickle
-import re
-import numpy as np
 import os
+import re
+import pickle
+import numpy as np
 import streamlit as st
-
-st.write("Working directory:", os.getcwd())
-st.write("Files in working dir:", os.listdir())
-
-
-model_path = os.path.join(os.path.dirname(__file__), 'logistic_model.pkl')
-vectorizer_path = os.path.join(os.path.dirname(__file__), 'tfidf_vectorizer.pkl')
-
-model_p = pickle.load(open(model_path, 'rb'))
-vectorizer = pickle.load(open(vectorizer_path, 'rb'))
-
-
-# --- Load model and vectorizer ---
-model_p = pickle.load(open('logistic_model.pkl', 'rb'))
-vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
-
 
 # --- Page configuration ---
 st.set_page_config(page_title="🧠 Depression Detector", page_icon="💬")
+
+# --- Debug: Show current directory and files ---
+# Remove or comment out in production
+st.write("Working directory:", os.getcwd())
+st.write("Files in working dir:", os.listdir())
+
+# --- Load model and vectorizer using relative paths ---
+base_path = os.path.dirname(__file__)
+model_path = os.path.join(base_path, 'logistic_model.pkl')
+vectorizer_path = os.path.join(base_path, 'tfidf_vectorizer.pkl')
+
+model_p = pickle.load(open(model_path, 'rb'))
+vectorizer_p = pickle.load(open(vectorizer_path, 'rb'))
 
 # --- Clean function ---
 def clean_text(text):
@@ -36,9 +32,9 @@ def clean_text(text):
 with st.sidebar:
     st.title("ℹ️ About the App")
     st.write("""
-    This app detects whether a tweet is expressing signs of **depression** or not using a trained **SVM model**.
+    This app detects whether a tweet is expressing signs of **depression** using a trained ML model.
     
-    **Model:** Support Vector Machine (SVM)  
+    **Model:** Logistic Regression  
     **Text Vectorization:** TF-IDF  
     **SMOTE Applied:** Yes  
     **Accuracy:** ~77.5%
@@ -60,10 +56,10 @@ if st.button('🔍 Predict'):
         vectorized = vectorizer_p.transform([cleaned])
         prediction = model_p.predict(vectorized.toarray())[0]
 
-        # Optional: Get prediction confidence (works if model has `predict_proba`)
+        # Optional: Get prediction confidence (if model supports it)
         try:
             confidence = model_p.predict_proba(vectorized)[0][prediction] * 100
-        except:
+        except AttributeError:
             confidence = None
 
         # --- Result Display ---
@@ -75,3 +71,4 @@ if st.button('🔍 Predict'):
 
         if confidence:
             st.markdown(f"**Confidence:** {confidence:.2f}%")
+
