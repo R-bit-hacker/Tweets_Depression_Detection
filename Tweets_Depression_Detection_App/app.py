@@ -9,6 +9,13 @@ st.write("Working directory:", os.getcwd())
 st.write("Files in working dir:", os.listdir())
 
 
+model_path = os.path.join(os.path.dirname(__file__), 'logistic_model.pkl')
+vectorizer_path = os.path.join(os.path.dirname(__file__), 'tfidf_vectorizer.pkl')
+
+model_p = pickle.load(open(model_path, 'rb'))
+vectorizer = pickle.load(open(vectorizer_path, 'rb'))
+
+
 # --- Load model and vectorizer ---
 model_p = pickle.load(open('logistic_model.pkl', 'rb'))
 vectorizer_p = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
